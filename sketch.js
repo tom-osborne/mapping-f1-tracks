@@ -3,6 +3,7 @@ let myMap;
 const key = 'pk.eyJ1IjoidG9tLW9zYm9ybmUiLCJhIjoiY2t4dnluMm96MjFreDJ1bXZpOWRqb2FvbSJ9.sHBUciwxYXsIutZ5BxM5ZA';
 const mappa = new Mappa('MapboxGL', key);
 let track_data;
+let points = [];
 
 const options = {
     lat: 0,
@@ -16,22 +17,32 @@ function preload() {
 }
 
 function setup() {
+    // track_data = loadJSON('data/f1-tracks.json', get_points);
     canvas = createCanvas(windowWidth, windowHeight);
-
     myMap = mappa.tileMap(options);        
     myMap.overlay(canvas);
-
-    strokeWeight(8);
-    stroke(255);
-    for(let track in track_data){
-        // this is not right, we need to map the lat/lon to a pixel on the canvas
-        let lat = map(track_data[track].lat, -90, 90, 0, windowWidth);
-        let lon = map(track_data[track].lon, -180, 180, 0, windowHeight);
-
-        point(lat, lon);
-    }
+    myMap.onChange(draw_points);
 }
   
-function draw() {}
+function draw() {
+    noLoop();
+    strokeWeight(4);
+    stroke(255);
+}
 
+function draw_points() {
+    points = [];
+    for(let track in track_data){
+        let lat = track_data[track].lat;
+        let lon = track_data[track].lon;
 
+        // Transform lat/lng to pixel position
+        pos = myMap.latLngToPixel(lat, lon);
+        console.log(lat, lon, pos);
+        points.push(pos);
+    }  
+
+    for(let i = 0; i < points.length; i++){
+        point(points[i].x, points[i].y);
+    }
+}
