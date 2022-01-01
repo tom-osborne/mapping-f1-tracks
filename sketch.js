@@ -24,6 +24,7 @@ function setup() {
     strokeWeight(8);
     stroke(255);
     for(let track in track_data){
+        // this is not right, we need to map the lat/lon to a pixel on the canvas
         let lat = map(track_data[track].lat, -90, 90, 0, windowWidth);
         let lon = map(track_data[track].lon, -180, 180, 0, windowHeight);
 
