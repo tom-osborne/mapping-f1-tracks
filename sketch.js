@@ -6,9 +6,9 @@ let track_data;
 let points = [];
 
 const options = {
-    lat: 0,
-    lng: 0,
-    zoom: 1,
+    lat: 20,
+    lng: 10,
+    zoom: 1.6,
     style: 'mapbox://styles/mapbox/traffic-night-v2',
 };
 
@@ -33,8 +33,8 @@ function setup() {
   
 function draw() {
     clear();
-    strokeWeight(4);
-    stroke(255);
+    strokeWeight(6);
+    stroke(255, 0, 0);
     for(let i = 0; i < points.length; i++){
         let pix = myMap.latLngToPixel(points[i].x, points[i].y);
         point(pix.x, pix.y);
