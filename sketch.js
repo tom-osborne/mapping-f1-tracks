@@ -25,7 +25,7 @@ function setup() {
     for(let track in track_data){
         let lat = track_data[track].lat;
         let lon = track_data[track].lon;
-        let name = track_data[track].name;
+        let name = track_data[track].location;
 
         pos = createVector(lat, lon);
         points.push(pos);
