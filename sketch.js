@@ -4,6 +4,7 @@ const key = 'pk.eyJ1IjoidG9tLW9zYm9ybmUiLCJhIjoiY2t4dnluMm96MjFreDJ1bXZpOWRqb2Fv
 const mappa = new Mappa('MapboxGL', key);
 let track_data;
 let points = [];
+let names = [];
 
 const options = {
     lat: 20,
@@ -24,19 +25,34 @@ function setup() {
     for(let track in track_data){
         let lat = track_data[track].lat;
         let lon = track_data[track].lon;
+        let name = track_data[track].name;
 
-        // Transform lat/lng to pixel position
         pos = createVector(lat, lon);
         points.push(pos);
+        names.push(name);
     }
 }
   
 function draw() {
     clear();
+
+    //Points
     strokeWeight(6);
     stroke(255, 0, 0);
     for(let i = 0; i < points.length; i++){
         let pix = myMap.latLngToPixel(points[i].x, points[i].y);
         point(pix.x, pix.y);
+    }
+
+    let zoom = myMap.zoom();
+
+    if(zoom > 2.5){
+        // Labels
+        fill(255);
+        noStroke();
+        for(let i = 0; i < names.length; i++){
+            let pix = myMap.latLngToPixel(points[i].x, points[i].y);
+            text(names[i], pix.x + 5, pix.y);
+        }
     }
 }
