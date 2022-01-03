@@ -1,6 +1,6 @@
 let canvas;
 let myMap;
-const key = 'pk.eyJ1IjoidG9tLW9zYm9ybmUiLCJhIjoiY2t4dnluMm96MjFreDJ1bXZpOWRqb2FvbSJ9.sHBUciwxYXsIutZ5BxM5ZA';
+const key = '';
 const mappa = new Mappa('MapboxGL', key);
 let track_data;
 let points = [];
